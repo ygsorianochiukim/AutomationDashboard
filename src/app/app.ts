@@ -1,8 +1,9 @@
 import { Component, signal } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-root',
-  imports: [],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
