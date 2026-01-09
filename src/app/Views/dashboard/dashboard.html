@@ -1,5 +1,5 @@
 <div class="page flex-col items-center gap-3 bg-primary">
-    <div class="w-full bg-accent p-3">
+    <div class="w-full bg-accent p-4">
         <header class="text-white font-nunito font-semibold">Automation Dashboard</header>
     </div>
     <div class="w-5/6 p-3">
@@ -30,20 +30,26 @@
                 </form>
             </div>
             <div class="h-[400px] flex-col gap-3 overflow-auto !pr-3 pb-3">
-                @for (logs of LogsList; track $index) {
+                @for (logs of LogsList; track logs.conversation_id) {
                     <div class="card !border-t-0 border-x-2 flex-row justify-between !p-3 items-center">
                         <div class="flex-col font-nunito leading-none">
                             <span class="font-bold">PSID</span>
-                            <span>{{logs.customer_psid}}</span>
+                            <span>{{ logs.customer_psid }}</span>
                         </div>
+
                         <div class="font-nunito leading-none flex-row gap-9">
                             <div class="flex-col gap-1">
                                 <span class="font-bold">Date Time Transfer</span>
-                                <span>{{logs.date_created | date}}</span>
+                                <span>{{ logs.date_created | date:'short' }}</span>
                             </div>
+
                             <div class="flex-col gap-1">
-                                <select name="" id="" class="w-[200px] bg-primary p-2 outline-none rounded-md text-sm">
-                                    <option value={{logs.status}}>{{logs.status}}</option>
+                                <select
+                                    name="status-{{ logs.conversation_id }}"
+                                    [(ngModel)]="logs.status"
+                                    class="w-[200px] bg-primary p-2 outline-none rounded-md text-sm"
+                                    (change)="updateHandoff(logs)"
+                                >
                                     <option value="OPEN">OPEN</option>
                                     <option value="PURCHASE">PURCHASE</option>
                                     <option value="COMPLAINT">COMPLAINT</option>

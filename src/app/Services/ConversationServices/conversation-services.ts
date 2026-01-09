@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Logs } from '../../Models/LogsList/logs.model';
 import { Observable } from 'rxjs';
+import { UpdateLogsList } from '../../Models/LogsList/update-logs-list.model';
 
 @Injectable({
   providedIn: 'root',
@@ -17,5 +18,9 @@ export class ConversationServices {
   }
   displayListLogsPending(): Observable<Logs[]>{
     return this.http.get<Logs[]>(`${this.apiUrl}/logs`);
+  }
+
+  UpdateLogsList(data: UpdateLogsList):Observable<UpdateLogsList>{
+    return this.http.put<UpdateLogsList>(`${this.apiUrl}/update` , data)
   }
 }
