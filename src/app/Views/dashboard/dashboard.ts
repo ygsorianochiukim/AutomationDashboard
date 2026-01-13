@@ -31,6 +31,7 @@ export class Dashboard implements OnInit {
     customer_psid: null,
     conversation_status: "OPEN",
   }
+  searchTerm: string = '';
   logsID: number = 0;
 
   constructor(private LogsServices : ConversationServices, private LogsUpdateService : DashboardOverview) {}
@@ -38,6 +39,19 @@ export class Dashboard implements OnInit {
   ngOnInit(): void {
     this.displayDashboard();
     this.displaySummary();
+  }
+  filteredLogs() {
+    if (!this.searchTerm) {
+        return this.LogsList;
+    }
+
+    const term = this.searchTerm.toLowerCase();
+
+    return this.LogsList.filter((log: any) =>
+        log.customer_psid?.toLowerCase().includes(term) ||
+        log.status?.toLowerCase().includes(term) || 
+        log.last_message?.toLowerCase().includes(term)
+    );
   }
   displaySummary(){
     this.LogsUpdateService.DashboardSummary().subscribe((data: DashboardSummaryResponse) => {
