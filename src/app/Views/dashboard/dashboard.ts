@@ -6,13 +6,15 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UpdateLogsList } from '../../Models/LogsList/update-logs-list.model';
+import { DashboardOverview } from '../../Services/Dashboard/dashboard-overview';
+import { UpdateLogsRecord } from '../../Models/Dashboard/update-logs-record.model';
 
 @Component({
   selector: 'app-dashboard',
   imports: [HttpClientModule, CommonModule, FormsModule],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
-  providers: [ ConversationServices ]
+  providers: [ ConversationServices , DashboardOverview]
 })
 export class Dashboard implements OnInit {
 
@@ -23,9 +25,13 @@ export class Dashboard implements OnInit {
     transfer_count_human:  10,
     conversation_id:  null,
   }
+  UpdateLogStatus: UpdateLogsRecord = {
+    customer_psid: null,
+    conversation_status: "OPEN",
+  }
   logsID: number = 0;
 
-  constructor(private LogsServices : ConversationServices, private router : Router) {}
+  constructor(private LogsServices : ConversationServices, private LogsUpdateService : DashboardOverview) {}
 
   ngOnInit(): void {
     this.displayDashboard();
@@ -43,9 +49,12 @@ export class Dashboard implements OnInit {
       status: log.status,
       transfer_count_bot: log.transfer_count_bot + 1,
       transfer_count_human: log.transfer_count_human,
+      customer_psid: log.customer_psid,
     };
+    debugger;
+    this.UpdateLogStatus.customer_psid = payload.customer_psid;
     this.LogsServices.UpdateLogsList(payload).subscribe(() => {
-
+      this.LogsUpdateService.UpdateLogs(this.UpdateLogStatus).subscribe(()=> {})
     });
   }
 
