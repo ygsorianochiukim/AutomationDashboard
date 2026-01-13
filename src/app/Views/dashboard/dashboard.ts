@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { UpdateLogsList } from '../../Models/LogsList/update-logs-list.model';
 import { DashboardOverview } from '../../Services/Dashboard/dashboard-overview';
 import { UpdateLogsRecord } from '../../Models/Dashboard/update-logs-record.model';
+import { DashboardSummaryResponse } from '../../Models/Dashboard/summary-logs.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,6 +26,7 @@ export class Dashboard implements OnInit {
     transfer_count_human:  10,
     conversation_id:  null,
   }
+  DashboardSummary: DashboardSummaryResponse | null = null;
   UpdateLogStatus: UpdateLogsRecord = {
     customer_psid: null,
     conversation_status: "OPEN",
@@ -35,6 +37,12 @@ export class Dashboard implements OnInit {
 
   ngOnInit(): void {
     this.displayDashboard();
+    this.displaySummary();
+  }
+  displaySummary(){
+    this.LogsUpdateService.DashboardSummary().subscribe((data: DashboardSummaryResponse) => {
+      this.DashboardSummary = data;
+    })
   }
 
   displayDashboard(){
