@@ -73,7 +73,6 @@ export class Dashboard implements OnInit {
       transfer_count_human: log.transfer_count_human,
       customer_psid: log.customer_psid,
     };
-    debugger;
     this.UpdateLogStatus.customer_psid = payload.customer_psid;
     this.LogsServices.UpdateLogsList(payload).subscribe(() => {
       this.LogsUpdateService.UpdateLogs(this.UpdateLogStatus).subscribe(()=> {})

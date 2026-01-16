@@ -63,7 +63,7 @@
                 </thead>
                 <tbody>
                     @for (logs of filteredLogs(); track logs.conversation_id) {
-                        <tr class="hover:bg-gray-400 duration-500">
+                        <tr class="hover:bg-gray-400 duration-200">
                             <td class="p-2">
                                 {{ logs.customer_psid }}
                             </td>
@@ -77,10 +77,28 @@
                                 {{ logs.status }}
                             </td>
                             <td class="p-2 !text-center">
-                                {{ logs.lead_stage }}
+                                <select [(ngModel)]="logs.lead_stage" class="bg-primary p-1 rounded-md text-sm w-[150px] text-center" (change)="updateLeadsStatus(logs)">
+                                    <option value="Intake">Intake</option>
+                                    <option value="Qualified">Qualified</option>
+                                    <option value="Scheduled Visit">Scheduled Visit</option>
+                                    <option value="Closing">Closing</option>
+                                    <option value="Dormant">Dormant</option>
+                                    <option value="Lost">Lost</option>
+                                    <option value="Unqualified">Unqualified</option>
+                                    <option value="Active">Active</option>
+                                    <option value="Deliquent">Deliquent</option>
+                                    <option value="Forfeited">Forfeited</option>
+                                    <option value="Former Customer">Former Customer</option>
+                                </select>
                             </td>
                             <td class="p-2 !text-center">
-                                {{ logs.relationship_stage }}
+                                <select [(ngModel)]="logs.relationship_stage" class="bg-primary p-1 rounded-md text-sm w-[150px] text-center" (change)="updateLeadsRelationship(logs)">
+                                    <option value="Neutral">Neutral</option>
+                                    <option value="Advocate">Advocate</option>
+                                    <option value="At-Risk">At-Risk</option>
+                                    <option value="Complaint">Complaint</option>
+                                    <option value="Bad Faith">Bad Faith</option>
+                                </select>
                             </td>
                         </tr>
                     }
