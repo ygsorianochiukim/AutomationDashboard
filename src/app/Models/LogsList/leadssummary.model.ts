@@ -6,4 +6,5 @@ export interface Leadssummary {
     Dormant?: number,
     Lost?: number,
     Unqualified?: number,
+    Conversion_rate?: number,
 }

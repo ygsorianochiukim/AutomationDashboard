@@ -11,7 +11,7 @@
                 <div class="count">{{leadsSummaryDisplay?.Qualified}}</div>
             </div>
             <div class="card">
-                <span class="font-nunito font-bold text-xl">Scheduled Visit</span>
+                <span class="font-nunito font-bold text-xl">Scheduled</span>
                 <div class="count">{{leadsSummaryDisplay?.Schedule}}</div>
             </div>
             <div class="card">
@@ -29,6 +29,10 @@
             <div class="card">
                 <span class="font-nunito font-bold text-xl">Unqualified</span>
                 <div class="count">{{leadsSummaryDisplay?.Unqualified}}</div>
+            </div>
+            <div class="card !w-[3000px]">
+                <span class="font-nunito font-bold text-xl">Conversion Rate</span>
+                <div class="count">{{leadsSummaryDisplay?.Conversion_rate}}%</div>
             </div>
             <!-- <div class="card">
                 <span class="font-nunito font-bold text-xl">Active (Paying)</span>
